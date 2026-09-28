@@ -1,0 +1,245 @@
+/* =========================
+   PROJECT PREVIEW THEME
+========================= */
+
+:root {
+    --paper: #EEE4E5;
+    --terracotta: #934F59;
+    --teal: #71879B;
+    --text: #3D3430;
+    --soft: #C7B59E;
+    --muted-text: #766A64;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    color: var(--text);
+    background: var(--paper);
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.project-preview {
+    width: 100%;
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+
+/* =========================
+   LEFT IMAGE
+========================= */
+
+.preview-image {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    padding-top: 40px;
+    background: var(--paper);
+}
+
+.preview-image img {
+    width: 100%;
+    height: 80vh;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: top;
+}
+
+
+/* =========================
+   RIGHT DETAILS
+========================= */
+
+.preview-details {
+    min-height: 100vh;
+
+    padding: 5px 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background: var(--paper);
+}
+
+
+/* Little handwritten label */
+
+.preview-label {
+    margin-bottom: 10px;
+
+    font-family: "Caveat", cursive;
+    font-size: 22px;
+
+    color: var(--terracotta);
+}
+
+
+/* Project name */
+
+.preview-details h1 {
+    margin: 0;
+
+    font-family: "Caveat", cursive;
+    font-size: 55px;
+    font-weight: 500;
+
+    color: var(--teal);
+}
+
+
+/* Project type */
+
+.project-type {
+    margin: 5px 0 25px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    letter-spacing: 2px;
+
+    color: var(--terracotta);
+}
+
+
+/* Description */
+
+.project-description {
+    max-width: 400px;
+
+    margin: 0 0 20px;
+
+    color: var(--muted-text);
+
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   TECH STACK
+========================= */
+
+.tech-section {
+    margin-bottom: 35px;
+}
+
+.tech-title {
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-family: "Caveat", cursive;
+    font-size: 22px;
+
+    color: var(--text);
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.tech-stack span {
+    padding: 7px 13px;
+
+    border: 1px solid var(--terracotta);
+    border-radius: 20px;
+
+    color: var(--terracotta);
+
+    font-size: 11px;
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+.preview-links {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.preview-links a {
+    text-decoration: none;
+}
+
+.primary-link {
+    padding: 12px 22px;
+
+    border-radius: 25px;
+
+    background: var(--terracotta);
+    color: var(--paper);
+
+    font-size: 13px;
+
+    transition: transform 0.2s ease;
+}
+
+.primary-link:hover {
+    transform: translateY(-2px);
+}
+
+.secondary-link {
+    color: var(--terracotta);
+
+    font-size: 13px;
+    font-weight: 500;
+
+    border-bottom: 1px solid var(--terracotta);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .project-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-image {
+        min-height: 450px;
+    }
+
+    .preview-image img {
+        height: 450px;
+    }
+
+    .preview-details {
+        min-height: auto;
+        padding: 45px 30px;
+    }
+
+    .preview-details h1 {
+        font-size: 50px;
+    }
+}
