@@ -38,7 +38,9 @@ body {
     min-height: 100vh;
 
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: minmax(0, 60%) minmax(0, 40%);
+
+    background: var(--paper);
 }
 
 
@@ -48,20 +50,29 @@ body {
 
 .preview-image {
     width: 100%;
+    min-width: 0;
     min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 0;
+
     overflow: hidden;
-    padding-top: 40px;
+
     background: var(--paper);
 }
 
 .preview-image img {
     width: 100%;
-    height: 80vh;
+    height: auto;
+    max-height: 80vh;
 
     display: block;
 
-    object-fit: cover;
-    object-position: top;
+    object-fit: contain;
+    object-position: center;
 }
 
 
@@ -70,9 +81,10 @@ body {
 ========================= */
 
 .preview-details {
+    min-width: 0;
     min-height: 100vh;
 
-    padding: 5px 40px;
+    padding: 40px;
 
     display: flex;
     flex-direction: column;
@@ -100,8 +112,9 @@ body {
     margin: 0;
 
     font-family: "Caveat", cursive;
-    font-size: 55px;
+    font-size: clamp(45px, 4vw, 55px);
     font-weight: 500;
+    line-height: 1;
 
     color: var(--teal);
 }
@@ -110,7 +123,7 @@ body {
 /* Project type */
 
 .project-type {
-    margin: 5px 0 25px;
+    margin: 8px 0 25px;
 
     font-size: 13px;
     font-weight: 500;
@@ -124,15 +137,16 @@ body {
 /* Description */
 
 .project-description {
+    width: 100%;
     max-width: 400px;
 
-    margin: 0 0 20px;
+    margin: 0 0 25px;
 
     color: var(--muted-text);
 
     font-size: 15px;
     font-weight: 300;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 
@@ -141,7 +155,7 @@ body {
 ========================= */
 
 .tech-section {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 .tech-title {
@@ -181,6 +195,7 @@ body {
 .preview-links {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     gap: 20px;
 }
@@ -190,6 +205,8 @@ body {
 }
 
 .primary-link {
+    display: inline-block;
+
     padding: 12px 22px;
 
     border-radius: 25px;
@@ -199,7 +216,9 @@ body {
 
     font-size: 13px;
 
-    transition: transform 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
 }
 
 .primary-link:hover {
@@ -217,29 +236,174 @@ body {
 
 
 /* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+    .project-preview {
+        grid-template-columns: 55% 45%;
+    }
+
+    .preview-details {
+        padding: 35px 30px;
+    }
+
+    .preview-details h1 {
+        font-size: 48px;
+    }
+
+    .project-description {
+        font-size: 14px;
+    }
+}
+
+
+/* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 800px) {
 
-    .project-preview {
-        grid-template-columns: 1fr;
+    body {
+        overflow-x: hidden;
     }
 
+    .project-preview {
+        display: block;
+
+        width: 100%;
+        min-height: 100vh;
+    }
+
+
+    /* PROJECT IMAGE */
+
     .preview-image {
-        min-height: 450px;
+        width: 100%;
+        min-height: auto;
+
+        padding: 25px 20px 10px;
+
+        display: block;
+
+        overflow: visible;
     }
 
     .preview-image img {
-        height: 450px;
+        width: 100%;
+        height: auto;
+        max-height: none;
+
+        object-fit: contain;
+
+        border-radius: 16px;
     }
 
+
+    /* PROJECT INFORMATION */
+
     .preview-details {
+        width: 100%;
         min-height: auto;
-        padding: 45px 30px;
+
+        padding: 30px 25px 50px;
+
+        display: block;
+    }
+
+    .preview-label {
+        font-size: 20px;
+        margin-bottom: 8px;
     }
 
     .preview-details h1 {
-        font-size: 50px;
+        font-size: clamp(42px, 13vw, 55px);
+        line-height: 0.95;
+    }
+
+    .project-type {
+        margin: 10px 0 20px;
+
+        font-size: 11px;
+        line-height: 1.5;
+
+        letter-spacing: 1.5px;
+    }
+
+    .project-description {
+        width: 100%;
+        max-width: none;
+
+        margin-bottom: 25px;
+
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+
+    /* TECH */
+
+    .tech-section {
+        margin-bottom: 28px;
+    }
+
+    .tech-title {
+        font-size: 21px;
+    }
+
+    .tech-stack {
+        gap: 7px;
+    }
+
+    .tech-stack span {
+        padding: 6px 11px;
+        font-size: 10px;
+    }
+
+
+    /* LINKS */
+
+    .preview-links {
+        width: 100%;
+
+        gap: 15px;
+    }
+
+    .primary-link {
+        padding: 11px 20px;
+    }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 480px) {
+
+    .preview-image {
+        padding: 20px 15px 5px;
+    }
+
+    .preview-details {
+        padding: 25px 20px 40px;
+    }
+
+    .preview-details h1 {
+        font-size: 43px;
+    }
+
+    .preview-links {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .primary-link {
+        width: 100%;
+
+        text-align: center;
     }
 }
