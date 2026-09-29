@@ -675,20 +675,45 @@ const portfolioGrid = document.getElementById("portfolioGrid");
 const portfolioPrev = document.getElementById("portfolioPrev");
 const portfolioNext = document.getElementById("portfolioNext");
 
+function getScrollAmount() {
+    const card = portfolioGrid.querySelector(".project-card");
+    const gap = parseFloat(getComputedStyle(portfolioGrid).gap) || 0;
+
+    return card.offsetWidth + gap;
+}
+
+
+/* NEXT */
 portfolioNext.addEventListener("click", () => {
+    const amount = getScrollAmount();
+
     portfolioGrid.scrollBy({
-        left: 360,
+        left: amount,
         behavior: "smooth"
     });
+
+    setTimeout(() => {
+        const firstCard = portfolioGrid.firstElementChild;
+
+        portfolioGrid.appendChild(firstCard);
+        portfolioGrid.scrollLeft -= amount;
+    }, 400);
 });
 
+
+/* PREVIOUS */
 portfolioPrev.addEventListener("click", () => {
+    const amount = getScrollAmount();
+    const lastCard = portfolioGrid.lastElementChild;
+
+    portfolioGrid.prepend(lastCard);
+    portfolioGrid.scrollLeft += amount;
+
     portfolioGrid.scrollBy({
-        left: -360,
+        left: -amount,
         behavior: "smooth"
     });
 });
-
 /* =========================
    PROJECT PREVIEW
 ========================= */
