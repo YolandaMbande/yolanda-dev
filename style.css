@@ -26,9 +26,12 @@ body {
     overflow: hidden;
 }
 
-
 body {
-    padding: 69px;
+    padding: 55px 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     font-family: "DM Sans", sans-serif;
     color: var(--text);
@@ -45,8 +48,23 @@ body {
 
     background-size:
         50px 50px;
+
+    animation: movingDots 3s ease-in-out infinite alternate;
 }
 
+@keyframes movingDots {
+    0% {
+        background-position: 0 0, 25px 25px;
+    }
+
+    50% {
+        background-position: 15px 20px, 40px 10px;
+    }
+
+    100% {
+        background-position: 30px 10px, 10px 35px;
+    }
+}
 
 /* =========================
    PAPER / WEBSITE WINDOW
@@ -56,20 +74,21 @@ body {
     position: relative;
 
     width: 100%;
+    max-width: 1100px;
     height: 100%;
-
-    padding: 0;
 
     background: var(--paper);
 
-    border-radius: 28px;
+    border: 2px solid #934F59;
+    border-radius: 4px;
 
     box-shadow:
-        0 15px 45px rgba(64, 53, 47, 0.12);
+        0 0 0 7px rgba(255, 250, 250, 0.55),
+        0 0 0 9px rgba(147, 79, 89, 0.25),
+        0 20px 50px rgba(64, 53, 47, 0.18);
 
     overflow: hidden;
 }
-
 
 /* =========================
    INTERNAL SCROLL AREA
@@ -77,17 +96,13 @@ body {
 
 .page-scroll {
     position: absolute;
-
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     overflow-y: auto;
     overflow-x: hidden;
-
     scroll-behavior: smooth;
-
+    scroll-snap-type: y mandatory;
     scrollbar-width: none;
 }
 
@@ -95,20 +110,29 @@ body {
     display: none;
 }
 
+.page-content {
+    width: 100%;
+    height: 100%;
+}
 
 /* =========================
-   SECTIONS
+   SECTIONS (MATCH PAGE HEIGHT)
 ========================= */
 
 .section {
     width: 100%;
+    height: 100%;
     min-height: 100%;
 
-    padding: 90px 80px 60px;
+    padding: 80px 80px 40px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    scroll-snap-align: start;
     scroll-margin-top: 0;
 }
-
 
 /* =========================
    SECTION HEADINGS
@@ -116,26 +140,91 @@ body {
 
 .section-label {
     display: block;
-
     margin-bottom: 8px;
-
     color: var(--terracotta);
-
     font-family: "Caveat", cursive;
     font-size: 24px;
 }
 
 .section h2 {
     margin: 0 0 20px;
-
     color: var(--text);
-
     font-family: "Caveat", cursive;
     font-size: 65px;
-
     line-height: 1;
 }
 
+/* =========================
+   HERO / HOME
+========================= */
+
+#home {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("assets/welcome_img.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.hero {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-text {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero h1 {
+    margin: 0 0 20px;
+    font-family: "Caveat", cursive;
+    color: var(--text);
+    font-size: clamp(65px, 6vw, 105px);
+    font-weight: 300;
+    line-height: 0.85;
+}
+
+.welcome-smile {
+    color: var(--teal);
+    font-size: 40px;
+    margin-left: 8px;
+    transform: rotate(8deg);
+}
+
+.hero h1 span {
+    color: var(--teal);
+}
+
+.hero p {
+    max-width: 500px;
+    margin: 0 auto 15px;
+    color: var(--muted-text);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.contact-link {
+    color: var(--terracotta);
+    font-size: 20px;
+    text-decoration: underline wavy var(--terracotta);
+    text-underline-offset: 5px;
+}
 
 /* =========================
    ABOUT
@@ -143,16 +232,14 @@ body {
 
 .about-section {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    padding-top: 60px;
     justify-content: space-between;
-
     gap: 50px;
 }
 
 .about-image {
     width: 35%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,9 +248,7 @@ body {
 .about-image img {
     width: 100%;
     max-width: 230px;
-
     display: block;
-
     object-fit: contain;
 }
 
@@ -178,10 +263,9 @@ body {
 ========================= */
 
 .portfolio-section {
-    padding-top: 60px;
+    justify-content: center;
 }
 
-/* Heading */
 .section-heading {
     display: flex;
     align-items: center;
@@ -194,11 +278,14 @@ body {
     font-size: 16px;
 }
 
-/* Horizontal project scroll */
+.portfolio-slider {
+    position: relative;
+    width: 100%;
+}
+
 .portfolio-grid {
     display: flex;
     gap: 30px;
-
     margin-top: 15px;
     padding: 10px 5px 25px;
 
@@ -211,13 +298,46 @@ body {
     scrollbar-width: none;
 }
 
-/* =========================
-   PORTFOLIO SLIDER
-========================= */
+.project-card {
+    flex: 0 0 250px;
+    scroll-snap-align: start;
+}
 
-.portfolio-slider {
-    position: relative;
-    width: 100%;
+.project-card img {
+    width: 75%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
+}
+
+.project-card h3 {
+    margin: 15px 0 5px;
+    color: var(--teal);
+    font-family: "Caveat", cursive;
+    font-size: 28px;
+}
+
+.project-card p {
+    margin: 0;
+    color: var(--muted-text);
+    line-height: 1.5;
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 12px;
+}
+
+.project-links a {
+    color: var(--terracotta);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.project-links a:hover {
+    text-decoration: underline;
 }
 
 .project-preview-image {
@@ -227,65 +347,6 @@ body {
 
 .project-preview-image:hover {
     transform: scale(1.03);
-}
-
-/* =========================
-   PROJECT PREVIEW MODAL
-========================= */
-
-.preview-modal {
-    position: fixed;
-    inset: 0;
-
-    display: none;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(61, 52, 48, 0.65);
-    backdrop-filter: blur(5px);
-
-    z-index: 9999;
-}
-
-.preview-window {
-    position: relative;
-
-    width: 80%;
-    max-width: 1000px;
-    height: 80vh;
-
-    background: var(--paper);
-    border-radius: 25px;
-
-    overflow: hidden;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-}
-
-#previewFrame {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.preview-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-
-    width: 42px;
-    height: 42px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: var(--terracotta);
-    color: var(--paper);
-
-    font-size: 28px;
-    cursor: pointer;
-
-    z-index: 10;
 }
 
 .portfolio-arrow {
@@ -327,75 +388,16 @@ body {
     right: -55px;
 }
 
-/* Individual project */
-.project-card {
-    flex: 0 0 250px;
-    scroll-snap-align: start;
-}
-
-/* Project image */
-.project-card img {
-    width: 75%;
-    display: block;
-    margin: 0 auto;
-    border-radius: 16px;
-}
-
-/* Project title */
-.project-card h3 {
-    margin: 15px 0 5px;
-
-    color: var(--teal);
-
-    font-family: "Caveat", cursive;
-    font-size: 28px;
-}
-
-/* Project description */
-.project-card p {
-    margin: 0;
-
-    color: var(--muted-text);
-
-    line-height: 1.5;
-}
-
-/* Project links */
-.project-links {
-    display: flex;
-    gap: 15px;
-    margin-top: 12px;
-}
-
-.project-links a {
-    color: var(--terracotta);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.project-links a:hover {
-    text-decoration: underline;
-}
-
 /* =========================
    CONTACT
 ========================= */
 
 .contact-section {
-    min-height: 100%;
-    height: auto;
-
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-
     gap: 70px;
-
-    padding-top: 20px;
-    padding-bottom: 70px;
-
-    box-sizing: border-box;
 }
 
 .contact-intro {
@@ -469,7 +471,7 @@ body {
 }
 
 .form-group textarea {
-    height: 130px;
+    height: 110px;
     resize: none;
 }
 
@@ -494,44 +496,85 @@ body {
 }
 
 /* =========================
-   CONTENT SCALE
+   PROJECT PREVIEW MODAL
 ========================= */
 
-.page-content {
-    width: 100%;
-    min-height: 100%;
+.preview-modal {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(61, 52, 48, 0.65);
+    backdrop-filter: blur(5px);
+
+    z-index: 9999;
 }
 
+.preview-window {
+    position: relative;
+
+    width: 80%;
+    max-width: 1000px;
+    height: 80vh;
+
+    background: var(--paper);
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+#previewFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.preview-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: var(--terracotta);
+    color: var(--paper);
+
+    font-size: 28px;
+    cursor: pointer;
+
+    z-index: 10;
+}
 
 /* =========================
-   SOCIAL ICONS
+   SOCIAL ICONS & MENU
 ========================= */
 
 .socials {
     position: absolute;
-
     top: 30px;
     left: 55px;
-
     z-index: 20;
 
     display: flex;
     gap: 22px;
-
     margin: 0;
 }
 
 .socials a {
     color: var(--text);
-
     font-size: 20px;
     font-weight: 600;
-
     text-decoration: none;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .socials a:hover {
@@ -539,194 +582,48 @@ body {
     transform: translateY(-2px);
 }
 
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-text {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    max-width: 650px;
-
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-}
-/* Heading */
-
-.hero h1 {
-    margin: 0 0 60px;
-
-    font-family: "Caveat", cursive;
-
-    color: var(--text);
-
-    font-size: clamp(65px, 6vw, 105px);
-    font-weight: 600;
-
-    line-height: 0.85;
-}
-
-.welcome-smile {
-    color: var(--teal);
-    font-size: 40px;
-    margin-left: 8px;
-    transform: rotate(8deg);
-}
-
-.hero h1 span {
-    color: var(--teal);
-}
-
-
-/* Paragraph */
-
-.hero p {
-    max-width: 500px;
-
-    margin: 0 auto 10px;
-
-    color: var(--muted-text);
-
-    font-size: 14px;
-    font-weight: 300;
-
-    line-height: 1.6;
-
-    transform: translateY(-35px);
-}
-
-/* Link */
-
-.contact-link {
-    color: var(--terracotta);
-
-    font-size: 20px;
-
-    text-decoration: underline wavy var(--terracotta);
-
-    text-underline-offset: 5px;
-
-    transform: translateY(-35px);
-}
-
-
-/* =========================
-   WEBSITE IMAGE
-========================= */
-
-#home {
-    position: relative;
-
-    width: 100%;
-    height: auto;
-    min-height: 100%;
-
-    background-image: url("assets/welcome_img.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
-}
-
-/* =========================
-   DECORATION
-========================= */
-
 .plant {
     position: absolute;
-
     right: 480px;
     bottom: 10px;
-
     color: var(--soft);
-
     font-size: 90px;
-
     transform: rotate(15deg);
 }
 
-
-/* =========================
-   TERRACOTTA MENU
-========================= */
-
 .menu {
     position: absolute;
-
     z-index: 10;
-
     top: 0;
     right: 0;
-
     width: 400px;
     height: 400px;
-
     background: var(--terracotta);
-
     border-bottom-left-radius: 100%;
-
     transform: translateX(0);
     transition: transform 0.6s ease;
 }
-
-
-/* =========================
-   CLOSED STATE
-========================= */
 
 .menu.closed {
     transform: translateX(100%);
 }
 
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
 .close-menu {
     position: absolute;
-
     top: 18px;
     right: 22px;
-
     border: none;
-
     background: transparent;
-
     color: var(--paper);
-
     font-size: 40px;
     font-weight: 200;
-
     line-height: 1;
-
     cursor: pointer;
 }
 
-
-/* =========================
-   OPEN MENU BUTTON
-========================= */
-
 .open-menu {
     position: absolute;
-
     z-index: 9;
-
     top: 25px;
     right: 25px;
 
@@ -750,9 +647,7 @@ body {
     opacity: 0;
     visibility: hidden;
 
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .open-menu.show {
@@ -764,235 +659,52 @@ body {
     transform: scale(1.08);
 }
 
-
-/* =========================
-   NAVIGATION
-========================= */
-
 .menu nav {
     display: flex;
     flex-direction: column;
-
     align-items: center;
-
     gap: 8px;
-
     padding-top: 75px;
     padding-left: 65px;
 }
 
 .menu nav a {
     color: var(--paper);
-
     font-size: 22px;
     font-weight: 300;
-
     text-decoration: none;
-
-    transition:
-        transform 0.2s ease,
-        color 0.2s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .menu nav a:hover {
     color: #E8D7B9;
-
     transform: translateX(-5px);
 }
 
-
 /* =========================
-   MOBILE
-========================= */
-/* =========================
-   MOBILE
+   RESPONSIVE (MOBILE)
 ========================= */
 
 @media (max-width: 900px) {
-
-    html,
-    body {
-        width: 100%;
-        margin: 0;
-    }
-
     body {
         padding: 15px;
-        height: 400vh;
-        overflow-x: hidden;
-        overflow-y: auto;
+        height: 100dvh;
     }
 
-    /* MAIN PINK WINDOW */
     .page {
-        position: fixed;
-        top: 15px;
-        left: 15px;
-
-        width: calc(100% - 30px);
-        height: calc(100vh - 30px);
-
-        padding: 0;
-
-        border-radius: 20px;
-        overflow: hidden;
-    }
-
-    .page-scroll {
-        position: absolute;
-        inset: 0;
-
+        position: relative;
         width: 100%;
         height: 100%;
-
-        overflow-y: auto;
-        overflow-x: hidden;
+        border-radius: 20px;
     }
 
-    .page-content {
-        width: 100%;
-        min-height: 100%;
-    }
-
-    /* ALL SECTIONS */
     .section {
-        width: 100%;
-        min-height: 100%;
-        height: auto;
-
-        padding: 90px 25px 50px;
-
-        box-sizing: border-box;
+        padding: 60px 20px 30px;
     }
-
-
-    /* =========================
-       SOCIALS
-    ========================= */
-
-    .socials {
-        top: 25px;
-        left: 25px;
-        gap: 16px;
-    }
-
-    .socials a {
-        font-size: 18px;
-    }
-
-
-    /* =========================
-       MENU
-    ========================= */
-
-    .open-menu {
-        top: 20px;
-        right: 20px;
-
-        width: 42px;
-        height: 42px;
-
-        font-size: 19px;
-    }
-
-    .menu {
-        width: 280px;
-        height: 280px;
-    }
-
-    .menu nav {
-        gap: 4px;
-        padding-top: 55px;
-        padding-left: 45px;
-    }
-
-    .menu nav a {
-        font-size: 17px;
-    }
-
-    .close-menu {
-        top: 12px;
-        right: 16px;
-        font-size: 32px;
-    }
-
-
-    /* =========================
-       WELCOME
-    ========================= */
-
-    #home {
-        min-height: 100%;
-        height: auto;
-
-        background-size: cover;
-        background-position: center;
-    }
-
-    .hero {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        padding-top: 100px;
-        padding-bottom: 60px;
-    }
-
-    .hero-text {
-        width: 100%;
-        max-width: 100%;
-
-        margin: 0 auto;
-        padding: 0 5px;
-
-        text-align: center;
-    }
-
-    .hero h1 {
-        margin-bottom: 50px;
-
-        font-size: clamp(55px, 18vw, 75px);
-        line-height: 0.9;
-    }
-
-    .welcome-smile {
-        font-size: 30px;
-    }
-
-    .hero p {
-        width: 100%;
-        max-width: 420px;
-
-        font-size: 14px;
-        line-height: 1.6;
-
-        transform: translateY(-25px);
-    }
-
-    .contact-link {
-        font-size: 17px;
-        transform: translateY(-20px);
-    }
-
-    .plant {
-        display: none;
-    }
-
-
-    /* =========================
-       ABOUT
-    ========================= */
 
     .about-section {
         flex-direction: column;
-
-        justify-content: center;
-        align-items: center;
-
-        gap: 25px;
-
-        padding-top: 90px;
-        padding-bottom: 50px;
+        gap: 20px;
     }
 
     .about-image,
@@ -1000,122 +712,14 @@ body {
         width: 100%;
     }
 
-    .about-image img {
-        width: 65%;
-        max-width: 230px;
-        margin: 0 auto;
-    }
-
-    .about-section .section-text {
-        max-width: 100%;
-        text-align: left;
-    }
-
-    .section-label {
-        font-size: 20px;
-    }
-
-    .section h2 {
-        font-size: 48px;
-        line-height: 1;
-    }
-
-    .about-section p {
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
-
-    /* =========================
-       PORTFOLIO
-    ========================= */
-
-    .portfolio-section {
-        padding-top: 90px;
-        padding-left: 25px;
-        padding-right: 25px;
-    }
-
-    .section-heading {
-        display: block;
-    }
-
-    .scroll-hint {
-        display: block;
-        margin: 5px 0 0;
-    }
-
-    .portfolio-slider {
-        width: 100%;
-    }
-
-    .portfolio-grid {
-        gap: 20px;
-
-        margin-top: 20px;
-        padding: 10px 0 25px;
-    }
-
-    .project-card {
-        flex: 0 0 80%;
-    }
-
-    .project-card img {
-        width: 100%;
-    }
-
-    .project-card h3 {
-        font-size: 26px;
-    }
-
-    .project-card p {
-        font-size: 13px;
-    }
-
-    /* arrows would sit outside the mobile window */
-    .portfolio-arrow {
-        display: none;
-    }
-
-
-    /* =========================
-       CONTACT
-    ========================= */
-
     .contact-section {
         flex-direction: column;
-
-        align-items: stretch;
-        justify-content: flex-start;
-
-        gap: 30px;
-
-        padding-top: 90px;
-        padding-bottom: 60px;
+        gap: 20px;
     }
 
-    .contact-intro {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .contact-intro h2 {
-        font-size: 48px;
-        margin: 8px 0 15px;
-    }
-
-    .contact-intro p {
-        font-size: 14px;
-        line-height: 1.6;
-    }
-
+    .contact-intro,
     .contact-form {
         width: 100%;
-        max-width: 100%;
-
-        padding: 20px;
-
-        transform: none;
     }
 
     .form-row {
@@ -1123,42 +727,178 @@ body {
         gap: 0;
     }
 
-    .form-group {
-        margin-bottom: 16px;
+    .portfolio-arrow {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body {
+        animation: none;
+    }
+}
+
+
+/* CHAT BUBBLE TOOLTIPS */
+
+.socials a {
+    position: relative;
+}
+
+/* The speech bubble */
+.socials a::after {
+    content: attr(data-tooltip);
+
+    position: absolute;
+    bottom: auto;
+    top: 38px;
+    left: 50%;
+
+    transform: translateX(-50%) translateY(-8px) scale(0.9);
+
+    background: #FFF9F7;
+    color: #934F59;
+
+    padding: 10px 14px;
+    border: 1.5px solid #934F59;
+    border-radius: 16px;
+
+    font-family: "Caveat", cursive;
+    font-size: 19px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    box-shadow: 3px 4px 0 rgba(147, 79, 89, 0.2);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s;
+
+    z-index: 100;
+}
+
+/* Little speech bubble tail */
+.socials a::before {
+    content: "";
+
+    position: absolute;
+    top: 32px;
+    left: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    background: #FFF9F7;
+    border-left: 1.5px solid #934F59;
+    border-top: 1.5px solid #934F59;
+
+    transform: translateX(-50%) rotate(45deg);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.25s ease;
+    z-index: 101;
+}
+
+/* Pop up on hover */
+.socials a:hover::after,
+.socials a:hover::before,
+.socials a:focus-visible::after,
+.socials a:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.socials a:hover::after,
+.socials a:focus-visible::after {
+    transform: translateX(-50%) translateY(0) scale(1);
+}
+
+
+/* =========================
+   ANIMATED MENU BUTTON
+========================= */
+
+.open-menu.show {
+    animation: menuGlow 2s ease-in-out infinite;
+}
+
+/* Expanding ring */
+.open-menu::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+
+    border: 2px solid var(--terracotta);
+    border-radius: 50%;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.open-menu.show::after {
+    animation: menuRing 2s ease-out infinite;
+}
+
+/* Soft flashing glow */
+@keyframes menuGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(147, 79, 89, 0.15);
     }
 
-    .form-group input,
-    .form-group textarea {
-        font-size: 16px;
+    50% {
+        box-shadow:
+            0 0 14px 5px rgba(147, 79, 89, 0.4),
+            0 0 25px 8px rgba(147, 79, 89, 0.15);
+    }
+}
+
+/* Ring expands outward */
+@keyframes menuRing {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.8;
     }
 
-    .form-group textarea {
-        height: 120px;
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
     }
+}
 
-    .send-button {
-        width: 100%;
+/* Pause animation on hover */
+.open-menu.show:hover,
+.open-menu.show:hover::after {
+    animation-play-state: paused;
+}
+
+/* Respect reduced motion settings */
+@media (prefers-reduced-motion: reduce) {
+    .open-menu.show,
+    .open-menu.show::after {
+        animation: none;
     }
+}
+/* BOTTOM-RIGHT CORNER CHARACTER */
 
+#home {
+    position: relative;
+}
 
-    /* =========================
-       PROJECT PREVIEW MODAL
-    ========================= */
+.corner-minion {
+    position: absolute;
+    bottom: -110px;
+    right: -260px;
 
-    .preview-window {
-        width: calc(100% - 30px);
-        height: 85vh;
+    width: 270px;
+    height: auto;
 
-        border-radius: 18px;
-    }
-
-    .preview-close {
-        top: 10px;
-        right: 10px;
-
-        width: 38px;
-        height: 38px;
-
-        font-size: 24px;
-    }
+    z-index: 2;
+    pointer-events: none;
 }

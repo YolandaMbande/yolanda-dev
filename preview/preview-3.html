@@ -16,13 +16,248 @@
     >
 
     <link rel="stylesheet" href="preview.css">
+    <style>
+
+/* =========================
+   404 COMING SOON PAGE
+========================= */
+
+.coming-soon {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px;
+    gap: 8px;
+    box-sizing: border-box;
+}
+
+/* DANCING GIF */
+
+.dancing-gif {
+    width: 180px;
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 404 HEADING */
+
+.coming-soon h1 {
+    font-family: "DM Sans", sans-serif;
+    font-size: 60px;
+    color: #934F59;
+    margin: 0;
+}
+
+/* COMING SOON MESSAGE */
+
+.coming-soon-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #3D3430;
+    margin: 0;
+}
+
+.coming-soon-text {
+    max-width: 350px;
+    line-height: 1.7;
+    color: #766A64;
+    margin: 0;
+}
+
+/* =========================
+   MINI HEART GAME
+========================= */
+
+.mini-game {
+    margin-top: 0;
+    text-align: center;
+}
+
+.game-title {
+    font-family: "Caveat", cursive;
+    font-size: 25px;
+    color: #934F59;
+    margin: 0 0 12px;
+}
+
+/* GAME CARDS */
+
+.game-cards {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.game-card {
+    position: relative;
+    display: block;
+    width: 95px;
+    height: 75px;
+    cursor: pointer;
+    perspective: 600px;
+}
+
+.game-card input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* CARD FRONT & BACK */
+
+.card-front,
+.card-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 2px dashed #934F59;
+    border-radius: 12px;
+    background: #EEE4E5;
+    color: #934F59;
+    font-family: "Sans Serrif", cursive;
+    font-size: 21px;
+    transition: transform 0.4s, opacity 0.4s;
+}
+
+.card-back {
+    opacity: 0;
+    transform: rotateY(180deg);
+    font-size: 17px;
+    padding: 5px;
+}
+
+/* CARD REVEAL */
+
+.game-card input:checked ~ .card-front {
+    opacity: 0;
+    transform: rotateY(180deg);
+}
+
+.game-card input:checked ~ .card-back {
+    opacity: 1;
+    transform: rotateY(0);
+}
+
+/* HOVER EFFECT */
+
+.game-card:hover .card-front {
+    background: #F8EFF0;
+}
+
+/* KEYBOARD FOCUS */
+
+.game-card:focus-within {
+    outline: 2px solid #934F59;
+    outline-offset: 4px;
+    border-radius: 12px;
+}
+
+/* =========================
+   MOBILE RESPONSIVENESS
+========================= */
+
+@media (max-width: 480px) {
+
+    .coming-soon {
+        padding: 20px;
+        gap: 8px;
+    }
+
+    .dancing-gif {
+        width: 140px;
+    }
+
+    .coming-soon h1 {
+        font-size: 45px;
+    }
+
+    .coming-soon-title {
+        font-size: 17px;
+    }
+
+    .game-title {
+        font-size: 22px;
+    }
+
+    .game-cards {
+        gap: 8px;
+    }
+
+    .game-card {
+        width: 85px;
+        height: 70px;
+    }
+
+    .card-back {
+        font-size: 15px;
+    }
+}
+
+    </style>
 </head>
 
 <body>
 
-    <main class="project-preview">
+    <main class="coming-soon">
 
-        <!-- LEFT SIDE -->
+        <img
+            src="../assets/cute.gif"
+            alt="Dancing while the project is under construction"
+            class="dancing-gif"
+        >
+
+        <h1>404-ish! ♡</h1>
+
+        <p class="coming-soon-title">
+            This little corner is getting a makeover.
+        </p>
+
+        
+<div class="mini-game">
+
+    <p class="game-title">
+        Since you're here... find the hidden heart tehe!
+    </p>
+
+    <div class="game-cards">
+
+        <label class="game-card">
+            <input type="radio" name="heart-game">
+            <span class="card-front">✿</span>
+            <span class="card-back">Not here! ☁</span>
+        </label>
+
+        <label class="game-card">
+            <input type="radio" name="heart-game">
+            <span class="card-front">✿</span>
+            <span class="card-back">You found me! ♡</span>
+        </label>
+
+        <label class="game-card">
+            <input type="radio" name="heart-game">
+            <span class="card-front">✿</span>
+            <span class="card-back">Try again! ✨</span>
+        </label>
+
+    </div>
+
+</div>
+
+
+    </main>
+
+</body>
+
+<!--
+<body>
+
+    <main class="project-preview">
         <div class="preview-image">
 
             <img
@@ -32,8 +267,6 @@
 
         </div>
 
-
-        <!-- RIGHT SIDE -->
         <div class="preview-details">
 
             <span class="preview-label">
@@ -52,9 +285,6 @@
                 in one place. It includes light and dark themes with a saved
                 theme preference for returning visitors.
             </p>
-
-
-            <!-- TECH STACK -->
             <div class="tech-section">
 
                 <span class="tech-title">
@@ -72,8 +302,6 @@
 
             </div>
 
-
-            <!-- LINKS -->
             <div class="preview-links">
 
                 <a
@@ -100,6 +328,6 @@
 
     </main>
 
-</body>
+</body> -->
 
-</html>
+</html> 
