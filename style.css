@@ -35,8 +35,8 @@ body {
   color: var(--text);
   background-color: #E3DADD;
   background-image:
-        radial-gradient(#934F59 2px, transparent 2px),
-        radial-gradient(#71879B 2px, transparent 2px);
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ctext x='0' y='17' font-size='11' fill='%23934F59'%3E%E2%99%A5%3C/text%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ctext x='0' y='17' font-size='11' fill='%2371879B'%3E%E2%99%A5%3C/text%3E%3C/svg%3E");
   background-position:
         0 0,
         25px 25px;
@@ -47,17 +47,16 @@ body {
 
 @keyframes movingDots {
   0% {
-  background-position: 0 0, 25px 25px;
-}
+    background-position: 0 0, 25px 25px;
+  }
 
-50% {
-  background-position: 15px 20px, 40px 10px;
-}
+  50% {
+    background-position: 15px 20px, 40px 10px;
+  }
 
-100% {
-  background-position: 30px 10px, 10px 35px;
-}
-
+  100% {
+    background-position: 30px 10px, 10px 35px;
+  }
 }
 
 /* =========================
@@ -835,7 +834,7 @@ body {
 
 .corner-minion {
   position: absolute;
-  bottom: -110px;
+  bottom: -70px;
   right: -260px;
   width: 270px;
   height: auto;
@@ -1435,4 +1434,225 @@ body {
     max-width: 260px;
     padding: 12px;
   }
+}
+
+
+/* =========================
+   CORRECTED ANIMATED MENU
+========================= */
+
+.menu-toggle,
+.close-menu {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.menu-toggle {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: block;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--paper);
+}
+
+.menu-toggle span,
+.close-menu span {
+    position: absolute;
+    left: 10px;
+    width: 24px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+        top 0.4s cubic-bezier(0.76, 0, 0.24, 1),
+        transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.menu-toggle span:first-child,
+.close-menu span:first-child {
+    top: 16px;
+}
+
+.menu-toggle span:last-child,
+.close-menu span:last-child {
+    top: 25px;
+}
+
+.menu-toggle.active span:first-child,
+.close-menu span:first-child {
+    top: 21px;
+    transform: rotate(45deg);
+}
+
+.menu-toggle.active span:last-child,
+.close-menu span:last-child {
+    top: 21px;
+    transform: rotate(-45deg);
+}
+
+/* Sliding menu panel */
+.menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    width: 400px;
+    height: 400px;
+    background: var(--terracotta);
+    border-bottom-left-radius: 100%;
+    transform: translateX(0);
+    visibility: visible;
+    transition:
+        transform 0.6s cubic-bezier(0.76, 0, 0.24, 1),
+        visibility 0.6s;
+}
+
+.menu.closed {
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Close button */
+.close-menu {
+    top: 18px;
+    right: 22px;
+    color: var(--paper);
+}
+
+/* Staggered menu links */
+.menu nav a {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+        opacity 0.35s ease,
+        transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1),
+        color 0.2s ease;
+}
+
+.menu:not(.closed) nav a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu:not(.closed) nav a:nth-child(1) {
+    transition-delay: 0.12s;
+}
+
+.menu:not(.closed) nav a:nth-child(2) {
+    transition-delay: 0.19s;
+}
+
+.menu:not(.closed) nav a:nth-child(3) {
+    transition-delay: 0.26s;
+}
+
+.menu:not(.closed) nav a:nth-child(4) {
+    transition-delay: 0.33s;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    .menu-toggle {
+        top: 17px;
+        right: 17px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .menu-toggle span {
+        left: 8px;
+        width: 24px;
+    }
+
+    .menu {
+        width: min(310px, 85vw);
+        height: min(310px, 85vw);
+    }
+}
+
+@media (max-width: 390px) {
+    .menu-toggle {
+        top: 14px;
+        right: 14px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .menu-toggle span {
+        left: 6px;
+        width: 23px;
+    }
+
+    .menu-toggle span:first-child {
+        top: 12px;
+    }
+
+    .menu-toggle span:last-child {
+        top: 21px;
+    }
+
+    .menu-toggle.active span:first-child,
+    .menu-toggle.active span:last-child {
+        top: 17px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu,
+    .menu-toggle span,
+    .close-menu span,
+    .menu nav a {
+        transition-duration: 0.01ms;
+        transition-delay: 0ms;
+    }
+}
+
+
+/* =========================
+   SIDE MENU ACTIVE UNDERLINE
+========================= */
+
+.menu nav a {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.menu nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--paper);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+/* Underline on hover and keyboard focus */
+.menu nav a:hover::after,
+.menu nav a:focus-visible::after {
+    transform: scaleX(1);
+}
+
+/* Keep underline on the selected section */
+.menu nav a.active::after {
+    transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu nav a::after {
+        transition: none;
+    }
 }
